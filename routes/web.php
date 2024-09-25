@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::view("/","index")->name("index");
-Route::view("/customers","customers")->name("customers");
+Route::get("/customers",[CustomerController::class,"index"])->name("customers");
 Route::view("/employees","employees")->name("employees");
 Route::view("/events","events")->name("events");
 Route::view("/facilities","facilities")->name("facilities");

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-bs-theme="dark">
+<html lang="es" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ICADB - @yield('title')</title>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -19,12 +22,33 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="{{route('index')}}" class="nav-link px-2 link-secondary">Home</a></li>
-                    <li><a href="{{route('customers')}}" class="nav-link px-2 link-body-emphasis">Customers</a></li>
-                    <li><a href="{{route('employees')}}" class="nav-link px-2 link-body-emphasis">Employees</a></li>
-                    <li><a href="{{route('events')}}" class="nav-link px-2 link-body-emphasis">Events</a></li>
-                    <li><a href="{{route('facilities')}}" class="nav-link px-2 link-body-emphasis">Facilities</a></li>
+                    <li><a href="{{ route('index') }}"
+                            class="nav-link px-2 {{ Request::is('/') ? 'link-secondary' : 'link-body-emphasis' }}">Home</a>
+                    </li>
+                    <li><a href="{{ route('events') }}"
+                            class="nav-link px-2 {{ Request::is('events') ? 'link-secondary' : 'link-body-emphasis' }}">Events</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#"
+                            class="nav-link px-2 dropdown-toggle {{ Request::is('catalogs*') ? 'link-secondary' : 'link-body-emphasis' }}"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Catalogs
+                        </a>
+                        <ul class="dropdown-menu text-small">
+                            <li><a class="dropdown-item {{ Request::is('customers') ? 'link-secondary' : 'link-body-emphasis' }}"
+                                    href="{{ route('customers') }}">Customer</a></li>
+                            <li><a class="dropdown-item {{ Request::is('employees') ? 'link-secondary' : 'link-body-emphasis' }}"
+                                    href="{{ route('employees') }}">Employee</a></li>
+                            <li><a class="dropdown-item {{ Request::is('facilities') ? 'link-secondary' : 'link-body-emphasis' }}"
+                                    href="{{route('facilities')}}">Facility</a></li>
+                            <li><a class="dropdown-item" href="#">Location</a></li>
+                            <li><a class="dropdown-item" href="#">Resource</a></li>
+                            <li><a class="dropdown-item" href="#">Customer Report</a></li>
+                        </ul>
+                    </li>
                 </ul>
+
 
                 <div class="dropdown text-end">
                     <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
